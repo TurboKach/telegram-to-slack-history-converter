@@ -38,11 +38,11 @@ class MessageConverter:
         if self.tg_message_to_convert.photo:
             if text:
                 text += "\n\n"
-            text += fr"<{self.tg_message_to_convert.message_link}|[link to photo '{self.tg_message_to_convert.photo}']>"
+            text += fr"<{self.tg_message_to_convert.message_link}|[link to photo `{self.tg_message_to_convert.photo}`]>"
         if self.tg_message_to_convert.file:
             if text:
                 text += "\n\n"
-            text += fr"<{self.tg_message_to_convert.message_link}|[link to file '{self.tg_message_to_convert.file}']>"
+            text += fr"<{self.tg_message_to_convert.message_link}|[link to file `{self.tg_message_to_convert.file}`]>"
         if hasattr(self.tg_message_to_convert, "sticker_emoji"):
             text += f"{self.tg_message_to_convert.sticker_emoji}"
         if hasattr(self.tg_message_to_convert, "poll"):
