@@ -3,6 +3,7 @@ from typing import List, Dict, Optional
 
 from classes.chats import TelegramChat, SlackChannel
 from classes.messages import TelegramMessage, SlackMessage
+from colorize import Colorize
 from envs import ROOT_DIR
 
 
@@ -93,12 +94,20 @@ class MessageConverter:
         # 5. Return absolute path to output file
         # Parse result.json file messages, convert them to Slack format and append to output file
 
-        print('Welcome to Telegram to Slack chat history converter\n')
-        print('1. You need to download Telegram chat history in JSON format first\n'
-              '   See https://telegram.org/blog/export-and-more for more details\n')
-
-        input_file_path = input('2. Enter an absolute path to result.json file:\n'
-                                '   ')
+        Colorize.print(
+            text='Welcome to Telegram to Slack chat history converter\n',
+            text_color=Colorize.FG.lightcyan,
+        )
+        Colorize.print(
+            text=('1. You need to download Telegram chat history in JSON format first\n'
+                  '   See https://telegram.org/blog/export-and-more for more details\n'),
+            text_color=Colorize.FG.lightcyan,
+        )
+        colorized_input_text = Colorize.color_text(
+            text='2. Enter an absolute path to result.json file:\n   ',
+            text_color=Colorize.FG.lightcyan,
+        )
+        input_file_path = input(colorized_input_text)
         self.input_file_path = input_file_path.strip()
 
         converted_messages_cnt = 0
@@ -112,11 +121,16 @@ class MessageConverter:
                 elif prefix == 'id':
                     self.telegram_chat.chat_id = value
 
-        print("\n3. Converting messages to Slack format and saving to file\n"
-              f"    Chat name to be converted: {self.telegram_chat.chat_name}")
-
+        Colorize.print(
+            text=("\n3. Converting messages to Slack format and saving to file\n"
+                  f"    Chat name to be converted: {self.telegram_chat.chat_name}"),
+            text_color=Colorize.FG.lightcyan,
+        )
         self.output_filename = f"{self.telegram_chat.chat_name.replace(' ', '_')}__for_slack_import.txt"
-        print(f"    Output filename: {self.output_filename}\n")
+        Colorize.print(
+            text=f"    Output filename: {self.output_filename}\n",
+            text_color=Colorize.FG.lightcyan,
+        )
         with open(self.output_dir + self.output_filename, "w") as f:
             f.write("")
         errors = []
@@ -133,19 +147,27 @@ class MessageConverter:
                     errors.append({"error": e, "message": tg_msg_obj, })
                 converted_messages_cnt += 1
 
-        print("Converting finished!\n")
+        Colorize.print(
+            text="Converting finished!\n",
+            text_color=Colorize.FG.lightgreen,
+        )
         if errors:
             error_filename = f"{self.output_dir}errors_{self.telegram_chat.chat_name.replace(' ', '_')}"
             with open(error_filename, "w") as f:
                 f.writelines([f"{str(e)}\n" for e in errors])
-            print(
-                f"There were {len(errors)} errors during converting process. "
-                f"You can find error log in file '{error_filename}'")
+            Colorize.print(
+                text=(f"There were {len(errors)} errors during converting process. "
+                      f"You can find error log in file '{error_filename}'"),
+                text_color=Colorize.FG.lightred,
+            )
 
-        print(f"{converted_messages_cnt} messages from {self.telegram_chat.chat_name} "
-              f"chat were successfully converted to Slack format and saved to {self.output_filename} file\n\n"
-              f"Now you can import {self.output_dir}{self.output_filename} file to your Slack workspace.\n"
-              f"See https://slack.com/help/articles/201748703-Import-conversations-from-Slack-classic for more details")
+        Colorize.print(
+            text=(f"{converted_messages_cnt} messages from {self.telegram_chat.chat_name} "
+                  f"chat were successfully converted to Slack format and saved to {self.output_filename} file\n\n"
+                  f"Now you can import {self.output_dir}{self.output_filename} file to your Slack workspace.\n"
+                  f"See https://slack.com/help/articles/201748703-Import-conversations-from-Slack-classic for more details"),
+            text_color=Colorize.FG.lightgreen,
+        )
 
     def convert_message_text_entities_to_slack_format(self, text_entities: List[Dict[str, str]]) -> str:
         """

@@ -1,8 +1,17 @@
 # About
 This script is made to convert exported Telegram group history into Slack import format, because Slack itself does not provide tools to do it.  
-There might be minor bugs or errors so feel free to open Pull Requests to improve this code.
+There might be minor bugs or errors so feel free to open [Pull Requests](https://github.com/TurboKach/telegram-to-slack-history-converter/compare) to improve this code.
 
 # Getting started
+
+## Installation
+Requires Python 3.8 or higher.
+
+```bash
+pip3 install -r requirements.txt
+```
+
+## Usage
 1. [Download Telegram chat history in **JSON** format](https://telegram.org/blog/export-and-more)
 2. Run `python main.py` and follow instructions:
    - Enter an **absolute path** to `result.json` file;
