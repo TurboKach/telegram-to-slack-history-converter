@@ -13,6 +13,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 1. [Download Telegram chat history in **JSON** format](https://telegram.org/blog/export-and-more)
+   - for Mac use [this](https://telegram.org/dl/desktop/mac) client to export chat history
 2. Run `python main.py` and follow instructions:
    - Enter an **absolute path** to `result.json` file;
    - Get your converted TXT file in `converted_files` directory;
