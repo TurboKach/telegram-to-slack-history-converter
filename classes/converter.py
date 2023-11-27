@@ -185,7 +185,12 @@ class MessageConverter:
             if not isinstance(entity, dict):
                 raise ValueError("text_entities must be a list of dictionaries")
 
-            entity_text = entity.get("text").replace(r'"', r"'").replace(r" ", r" ")  # Replace non-breaking space with space
+            entity_text = (
+                entity.get("text")
+                .replace(r'"', r"'")
+                .replace(r" ", r" ")
+                .replace(r"∙", r"")
+            )  # Replace non-breaking space with space
 
             match entity.get("type"):
                 case "plain":
