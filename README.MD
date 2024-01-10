@@ -40,3 +40,4 @@ If there were any errors on converting, they will be saved in `converted_files` 
 - Text formatting not supported by slack will be converted to bold or left as plain text
 - No service messages (e.g. "User joined the group")
 - `"` char replaced to `'` in messages due to import problems
+- [Known Slack import fails](https://github.com/TurboKach/telegram-to-slack-history-converter/issues/1#issue-2074706121)
