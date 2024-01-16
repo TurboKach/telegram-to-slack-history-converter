@@ -1,3 +1,5 @@
+import os
+
 import ijson
 from typing import List, Dict, Optional
 
@@ -131,6 +133,8 @@ class MessageConverter:
             text=f"    Output filename: {self.output_filename}\n",
             text_color=Colorize.FG.lightcyan,
         )
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
         with open(self.output_dir + self.output_filename, "w") as f:
             f.write("")
         errors = []
